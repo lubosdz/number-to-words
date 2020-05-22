@@ -1,0 +1,21 @@
+{
+	"name": "lubosdz/number-to-words",
+	"description": "Number to words conversion - locale specific.",
+	"license": "BSD-3-Clause",
+	"keywords": ["convert number to words", "prevod číslo na slovo"],
+	"support": {
+		"source": "https://github.com/lubosdz/number-to-words",
+		"issues": "https://github.com/lubosdz/number-to-words/issues"
+	},
+	"authors": [
+		{
+			"name": "lubosdz@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.5"
+	},
+	"autoload": {
+		"psr-4": {"lubosdz\\numberToWords\\": "src/"}
+	}
+}
