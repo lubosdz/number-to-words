@@ -1,7 +1,9 @@
 Number to words - PHP Converter
 ===============================
 
-PHP utility for converting arbitrary float or integer number to words in English, Slovak or Czech.
+PHP utility for converting arbitrary float or integer number to words, mainly in English, Slovak and Czech.
+These have custom PHP implementation, which will fix INTL/ICU bugs and allows for output customization.
+Other languages are supported too, but only using INTL/ICU PHP extension, which might be buggy.
 
 Installation
 ============
@@ -53,10 +55,20 @@ NumberToWords_EN::convert(987654321.123);
 NumberToWords_EN::convertIntl(987654321.123);
 // nine hundred eighty-seven million six hundred fifty-four thousand three hundred twenty-one point one two three
 
+// Russian:
+NumberToWords::convert(123.45, 'ru'); // сто двадцать три целых сорок пять сотых
+
+// German:
+NumberToWords::convert(123.45, 'de'); // ein­hundert­drei­und­zwanzig Komma vier fünf
+
+// French:
+NumberToWords::convert(123.45, 'fr'); // cent vingt-trois virgule quatre cinq
+
 ```
 
 Changelog
 ---------
 
 * 1.0.0 - [22.05.2020] initial release (SK, EN, CZ)
-* 1.0.1 - [12.03.2021] added factory class `NumberToWords::convert($num, $lang)` and tests
+* 1.0.1 - [12.03.2021] added factory class `NumberToWords::convert($num, $lang)` and tests.
+* 1.0.2 - [12.03.2021] extended support also for any other language (German, Russian, ...) - but only using INTL/ICU PHP extension.

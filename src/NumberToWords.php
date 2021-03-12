@@ -30,15 +30,15 @@ class NumberToWords
 		switch($lang){
 			case 'sk':
 				return $forceIntl ? NumberToWords_SK::convertIntl($num) : NumberToWords_SK::convert($num);
-				break;
 			case 'cs':
 			case 'cz':
 				return $forceIntl ? NumberToWords_CZ::convertIntl($num) : NumberToWords_CZ::convert($num);
-				break;
 			case 'en':
-			default:
 				return $forceIntl ? NumberToWords_EN::convertIntl($num) : NumberToWords_EN::convert($num);
-				break;
+			default:
+				// not directly implemented language
+				// we can only convert via INTL, supplied lang code must comply with ISO-639-1 lang codes
+				return NumberToWords_EN::convertIntl($num, $lang);
 		}
 	}
 }

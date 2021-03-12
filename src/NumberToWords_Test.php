@@ -65,6 +65,18 @@ class NumberToWords_Test
 
 		echo "[intl] 987654321.123 = ".NumberToWords_EN::convertIntl(987654321.123).'<br>';
 		// nine hundred eighty-seven million six hundred fifty-four thousand three hundred twenty-one point one two three
+
+		echo "<br>Russian:<br>";
+		echo '[intl] 123.45 = '.NumberToWords::convert(123.45, 'ru').'<br>';
+		// сто двадцать три целых сорок пять сотых
+
+		echo "<br>German:<br>";
+		echo '[intl] 123.45 = '.NumberToWords::convert(123.45, 'de').'<br>';
+		// ein­hundert­drei­und­zwanzig Komma vier fünf
+
+		echo "<br>French:<br>";
+		echo '[intl] 123.45 = '.NumberToWords::convert(123.45, 'fr').'<br>';
+		// cent vingt-trois virgule quatre cinq
 	}
 }
 
