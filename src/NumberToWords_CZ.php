@@ -1,10 +1,14 @@
 <?php
 /**
 * Class for converting arbitrary float number to words into Czech language
-* This implementation is very close to ICU [CS|CZ] output.
+* Czech INTL/ICU output is very close to PHP output - only few bugs noticed.
 *
-* Version 1.0.0
-* Release date: 2020-05-22
+* Version 1.0.1
+* Release date: 2021-03-12
+*
+* Links:
+* Demo - https://synet.sk/blog/php/330-cislo-na-slovo
+* Repo - https://github.com/lubosdz/number-to-words
 *
 * Original credits (site not available anymore):
 * http://www.karlrixon.co.uk/writing/convert-numbers-to-words-with-php
@@ -17,7 +21,7 @@ class NumberToWords_CZ
 	/**
 	* Release version
 	*/
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	* Return converted number as a string

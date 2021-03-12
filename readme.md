@@ -1,8 +1,7 @@
 Number to words - PHP Converter
 ===============================
 
-Helper utility for converting arbitrary float number to words.
-Available for English, Slovak and Czech localizations.
+PHP utility for converting arbitrary float or integer number to words in English, Slovak or Czech.
 
 Installation
 ============
@@ -13,66 +12,51 @@ Installation
 $ composer require "lubosdz/number-to-words" : "~1.0.0"
 ```
 
-Demo
-====
+Demo & repo
+===========
 
-* available only for [Slovak language](https://synet.sk/blog/php/330-cislo-na-slovo)
+* demo: available only for [Slovak language](https://synet.sk/blog/php/330-cislo-na-slovo)
+* repo: [https://github.com/lubosdz/number-to-words](https://github.com/lubosdz/number-to-words)
 
-
-Examples
---------
+Usage
+-----
 
 ```php
 
+// use either factory ..
+use lubosdz\numberToWords\NumberToWords;
+
+// .. or language specific implementation
 use lubosdz\numberToWords\NumberToWords_SK;
-use lubosdz\numberToWords\NumberToWords_EN;
 use lubosdz\numberToWords\NumberToWords_CZ;
+use lubosdz\numberToWords\NumberToWords_EN;
 
-echo "<hr>English:<hr/>";
+// Slovensky / Slovak
+NumberToWords::convert(123.45, 'sk'); // jednostodvadsaťtri celé štyridsaťpäť
+NumberToWords_SK::convert(123.45); // jednostodvadsaťtri celé štyridsaťpäť
+NumberToWords_SK::convertIntl(123.45); // jedna­sto dvasať­tri čiarka štyri päť (ICU returns "dvasať", bug)
 
-echo NumberToWords_EN::convert(123.45);
-// one hundred twenty-three point fourty-five
+// Česky / Czech:
+NumberToWords::convert(123.45, 'cz'); // allowed cz or cs, // sto dvacet tři čárka čtyřicet pět
+NumberToWords_CZ::convert(123.45); // sto dvacet tři čárka čtyřicet pět
+NumberToWords_CZ::convertIntl(123.45); // sto dvacet tři čárka čtyři pět
 
-echo "<br>".NumberToWords_EN::convertIntl(123.45);
-// one hundred twenty-three point four five
+// English:
+NumberToWords::convert(123.45); // lang code not needed since english is default
+NumberToWords_EN::convert(123.45); // one hundred twenty-three point fourty-five
+NumberToWords_EN::convertIntl(123.45); // one hundred twenty-three point four five
 
-echo "<br>".NumberToWords_EN::convert(987654321.123);
+// really big number:
+NumberToWords_EN::convert(987654321.123);
 // nine hundred eighty-seven million, six hundred fifty-four thousand, three hundred twenty-one point one hundred twenty-three
 
-echo "<br>".NumberToWords_EN::convertIntl(987654321.123);
+NumberToWords_EN::convertIntl(987654321.123);
 // nine hundred eighty-seven million six hundred fifty-four thousand three hundred twenty-one point one two three
-
-echo "<hr/>Slovak:<hr/>";
-
-echo NumberToWords_SK::convert(123.45);
-// jednostodvadsaťtri celé štyridsaťpäť
-
-echo "<br>".NumberToWords_SK::convertIntl(123.45);
-// jedna­sto dvasať­tri čiarka štyri päť (áno, ICU vracia "dvasať", nie je to preklep)
-
-echo "<br>".NumberToWords_SK::convert(987654321.123);
-// deväťstoosemdesiatsedem miliónov šesťstopäťdesiatštyritisíc tristodvadsaťjeden celé jednostodvadsaťtri
-
-echo "<br>".NumberToWords_SK::convertIntl(987654321.123);
-// deväť­sto osemdesiat­sedem miliónov šesť­sto päťdesiat­štyri tisíc tri­sto dvasať­jeden čiarka jeden dva tri
-
-echo "<hr/>Česky:<hr/>";
-
-echo NumberToWords_CZ::convert(123.45);
-// sto dvacet tři čárka čtyřicet pět
-
-echo "<br>".NumberToWords_CZ::convertIntl(123.45);
-// sto dvacet tři čárka čtyři pět
-
-echo "<br>".NumberToWords_CZ::convert(987654321.123);
-// devět set osmdesát sedm miliónů šest set padesát čtyři tisíc tři sta dvacet jeden čárka sto dvacet tři
-
-echo "<br>".NumberToWords_CZ::convertIntl(987654321.123);
-// devět set osmdesát sedm miliónů šest set padesát čtyři tisíc tři sta dvacet jeden čárka jeden dva tři
 
 ```
 
 Changelog
 ---------
 
-* 1.0.0 - [22.05.2020] initial release (SK, EN)
+* 1.0.0 - [22.05.2020] initial release (SK, EN, CZ)
+* 1.0.1 - [12.03.2021] added factory class `NumberToWords::convert($num, $lang)` and tests

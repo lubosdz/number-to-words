@@ -1,14 +1,14 @@
 <?php
 /**
-* Class for converting arbitrary float number to words into Slovak language
+* Class for converting arbitrary float or integer number to words in Slovak language.
 * This implementation replaces ICU [SK] implementation, which is buggy and does not implemented some specific Slovak declination rules.
 *
-* Version 1.0.0
-* Release date: 2020-05-22
+* Version 1.0.1
+* Release date: 2021-03-12
 *
-* Demo:
-* https://ipdf.sk/slovenska-posta/postovy-poukaz-peniaze-na-adresu
-* https://synet.sk/blog/php/330-cislo-na-slovo
+* Links:
+* Demo - https://synet.sk/blog/php/330-cislo-na-slovo
+* Repo - https://github.com/lubosdz/number-to-words
 *
 * Original credits (site not available anymore):
 * http://www.karlrixon.co.uk/writing/convert-numbers-to-words-with-php
@@ -21,7 +21,7 @@ class NumberToWords_SK
 	/**
 	* Release version
 	*/
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	* Return converted number as a string
