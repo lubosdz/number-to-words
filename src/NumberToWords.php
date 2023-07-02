@@ -3,8 +3,8 @@
 * Simple factory class for converting float number to words.
 * Implemented due to many bugs in INTL PHP extension (at least for Slovak lang).
 *
-* Version 1.0.1
-* Release date: 2021-03-12
+* Version 1.0.3
+* Release date: 2023-02-07
 *
 * Links:
 * Demo - https://synet.sk/blog/php/330-cislo-na-slovo

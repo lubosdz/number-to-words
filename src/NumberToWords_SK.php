@@ -3,8 +3,8 @@
 * Class for converting arbitrary float or integer number to words in Slovak language.
 * This implementation replaces ICU [SK] implementation, which is buggy and does not implemented some specific Slovak declination rules.
 *
-* Version 1.0.1
-* Release date: 2021-03-12
+* Version 1.0.3
+* Release date: 2023-02-07
 *
 * Links:
 * Demo - https://synet.sk/blog/php/330-cislo-na-slovo
@@ -92,7 +92,7 @@ class NumberToWords_SK
 			return $negative . self::convert(abs($number));
 		}
 
-		$string = $fraction = null;
+		$string = $fraction = '';
 
 		if (strpos($number, '.') !== false) {
 			list($number, $fraction) = explode('.', $number);

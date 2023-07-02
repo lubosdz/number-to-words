@@ -69,6 +69,7 @@ NumberToWords::convert(123.45, 'fr'); // cent vingt-trois virgule quatre cinq
 Changelog
 ---------
 
+* 1.0.3 - [02.07.2023] Fixed PHP 8.2 compatability
+* 1.0.2 - [12.03.2021] extended support also for any other language (German, Russian, ...) - but only by using INTL/ICU PHP extension
+* 1.0.1 - [12.03.2021] added factory class `NumberToWords::convert($num, $lang)` and tests
 * 1.0.0 - [22.05.2020] initial release (SK, EN, CZ)
-* 1.0.1 - [12.03.2021] added factory class `NumberToWords::convert($num, $lang)` and tests.
-* 1.0.2 - [12.03.2021] extended support also for any other language (German, Russian, ...) - but only using INTL/ICU PHP extension.

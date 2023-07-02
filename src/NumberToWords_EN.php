@@ -3,8 +3,8 @@
 * Class for converting arbitrary float number to words into English language.
 * English ICU/INTL implementation is almost identical with PHP output - almost no bug noted.
 *
-* Version 1.0.1
-* Release date: 2021-03-12
+* Version 1.0.3
+* Release date: 2023-02-07
 *
 * Links:
 * Demo - https://synet.sk/blog/php/330-cislo-na-slovo
@@ -91,7 +91,7 @@ class NumberToWords_EN
 			return $negative . self::convert(abs($number));
 		}
 
-		$string = $fraction = null;
+		$string = $fraction = '';
 
 		if (strpos($number, '.') !== false) {
 			list($number, $fraction) = explode('.', $number);
