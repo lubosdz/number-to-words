@@ -1,10 +1,7 @@
 <?php
 /**
-* Simple factory class for converting float number to words.
+* Simple factory class for converting numbers to words.
 * Implemented due to many bugs in INTL PHP extension (at least for Slovak lang).
-*
-* Version 1.0.3
-* Release date: 2023-02-07
 *
 * Links:
 * Demo - https://synet.sk/blog/php/330-cislo-na-slovo
@@ -15,6 +12,17 @@ namespace lubosdz\numberToWords;
 
 class NumberToWords
 {
+	/**
+	* @var bool When true return decimal part as a fraction ie. 1/10 or 99/100
+	*/
+	public static $decimalsAsFraction = false;
+
+	/**
+	* @var string Output template when returning decimal part as a fraction (formatted with sprintf)
+	* 			  First placeholder %s is for the fraction, second %s for the base ie. (99/100)
+	*/
+	public static $templateFraction = "(%s/%s)";
+
 	/**
 	* Return supplied number as words
 	*
@@ -29,11 +37,17 @@ class NumberToWords
 
 		switch($lang){
 			case 'sk':
+				NumberToWords_SK::$decimalsAsFraction = self::$decimalsAsFraction;
+				NumberToWords_SK::$templateFraction = self::$templateFraction;
 				return $forceIntl ? NumberToWords_SK::convertIntl($num) : NumberToWords_SK::convert($num);
 			case 'cs':
 			case 'cz':
+				NumberToWords_CZ::$decimalsAsFraction = self::$decimalsAsFraction;
+				NumberToWords_CZ::$templateFraction = self::$templateFraction;
 				return $forceIntl ? NumberToWords_CZ::convertIntl($num) : NumberToWords_CZ::convert($num);
 			case 'en':
+				NumberToWords_EN::$decimalsAsFraction = self::$decimalsAsFraction;
+				NumberToWords_EN::$templateFraction = self::$templateFraction;
 				return $forceIntl ? NumberToWords_EN::convertIntl($num) : NumberToWords_EN::convert($num);
 			default:
 				// not directly implemented language

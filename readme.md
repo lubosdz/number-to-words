@@ -38,6 +38,10 @@ NumberToWords::convert(123.45, 'sk'); // jednostodvadsaťtri celé štyridsaťp�
 NumberToWords_SK::convert(123.45); // jednostodvadsaťtri celé štyridsaťpäť
 NumberToWords_SK::convertIntl(123.45); // jedna­sto dvasať­tri čiarka štyri päť (ICU returns "dvasať", bug)
 
+// with decimals as a fraction - useful in accounting
+NumberToWords::$decimalsAsFraction = true;
+NumberToWords::convert(123.45, 'sk'); // jednostodvadsaťtri (45/100)
+
 // Česky / Czech:
 NumberToWords::convert(123.45, 'cz'); // allowed cz or cs, // sto dvacet tři čárka čtyřicet pět
 NumberToWords_CZ::convert(123.45); // sto dvacet tři čárka čtyřicet pět
@@ -69,7 +73,24 @@ NumberToWords::convert(123.45, 'fr'); // cent vingt-trois virgule quatre cinq
 Changelog
 ---------
 
-* 1.0.3 - [02.07.2023] Fixed PHP 8.2 compatability
-* 1.0.2 - [12.03.2021] extended support also for any other language (German, Russian, ...) - but only by using INTL/ICU PHP extension
-* 1.0.1 - [12.03.2021] added factory class `NumberToWords::convert($num, $lang)` and tests
-* 1.0.0 - [22.05.2020] initial release (SK, EN, CZ)
+1.0.4 - 04.02.2024
+------------------
+* Support decimals as a fraction
+* Fixed zeroes in decimal part on left side
+* added unit tests
+
+1.0.3 - 02.07.2023
+------------------
+* Fixed PHP 8.2 compatability
+
+1.0.2 - 12.03.2021
+------------------
+* extended support for any language via INTL/ICU extension
+
+1.0.1 - 12.03.2021
+------------------
+* added factory class `NumberToWords::convert($num, $lang)`
+
+1.0.0 - 22.05.2020
+------------------
+* initial release (SK, EN, CZ)

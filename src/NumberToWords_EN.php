@@ -3,9 +3,6 @@
 * Class for converting arbitrary float number to words into English language.
 * English ICU/INTL implementation is almost identical with PHP output - almost no bug noted.
 *
-* Version 1.0.3
-* Release date: 2023-02-07
-*
 * Links:
 * Demo - https://synet.sk/blog/php/330-cislo-na-slovo
 * Repo - https://github.com/lubosdz/number-to-words
@@ -19,9 +16,15 @@ namespace lubosdz\numberToWords;
 class NumberToWords_EN
 {
 	/**
-	* Release version
+	* @var bool When true return decimal part as a fraction ie. 1/10 or 99/100
 	*/
-	const VERSION = '1.0.1';
+	public static $decimalsAsFraction = false;
+
+	/**
+	* @var string Output template when returning decimal part as a fraction (formatted with sprintf)
+	* 			  First placeholder %s is for the fraction, second %s for the base ie. (99/100)
+	*/
+	public static $templateFraction = "(%s/%s)";
 
 	/**
 	* Return converted number as a string
@@ -132,18 +135,23 @@ class NumberToWords_EN
 		}
 
 		if ('' !== trim($fraction) && is_numeric($fraction)) {
-			$string .= $decimal;
-			$fraction = intval($fraction);
-			if($fraction < 1000){
-				// up to 3 decimals - full convert
-				$string .= self::convert($fraction);
+			if(self::$decimalsAsFraction){
+				$fraction = trim($fraction); // (!) keep zeroes on left and right
+				$base = pow(10, strlen($fraction));
+				$string .= " ".sprintf(self::$templateFraction, intval($fraction), $base); // ie. 99/100
 			}else{
-				// 3+ decimals - spell out single digits
-				$words = [];
-				foreach (str_split((string) $fraction) as $number) {
-					$words[] = $dictionary[$number];
+				$string .= $decimal;
+				if('0' !== substr($fraction, 0, 1) && intval($fraction) < 1000){
+					// up to 3 decimals and not zeroes on left - full convert
+					$string .= trim(self::convert($fraction));
+				}else{
+					// 3+ decimals or zeroes on left - spell out single digits
+					$words = [];
+					foreach (str_split((string) $fraction) as $number) {
+						$words[] = $dictionary[$number];
+					}
+					$string .= implode(' ', $words);
 				}
-				$string .= implode(' ', $words);
 			}
 		}
 
