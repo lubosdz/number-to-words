@@ -26,6 +26,12 @@ class NumberToWords_SK
 	*/
 	public static $templateFraction = "(%s/%s)";
 
+    /**
+     * @var null|int Set how decimals do you want to format, for example
+     * when you want to convert float number 37.4 with 2 decimals(as number for pay) to 37.40
+     */
+    public static $numberOfdecimals = null;
+
 	/**
 	* Return converted number as a string
 	* @param float $number
@@ -98,6 +104,9 @@ class NumberToWords_SK
 		$string = $fraction = '';
 
 		if (strpos($number, '.') !== false) {
+            if(self::$numberOfdecimals) {
+                $number = number_format($number, self::$numberOfdecimals, '.', '');
+            }
 			list($number, $fraction) = explode('.', $number);
 		}
 
