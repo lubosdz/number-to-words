@@ -22,9 +22,14 @@ class NumberToWords_SK
 
 	/**
 	* @var string Output template when returning decimal part as a fraction (formatted with sprintf)
-	* 			  First placeholder %s is for the fraction, second %s for the base ie. (99/100)
+	* First placeholder %s is for the fraction, second %s for the base ie. (99/100)
 	*/
 	public static $templateFraction = "(%s/%s)";
+
+	/**
+	* @var string The separator word for the decimal part
+	*/
+	public static $txtDecimal = " celé ";
 
 	/**
 	* Return converted number as a string
@@ -39,7 +44,6 @@ class NumberToWords_SK
 		$conjunction = ' '; // in english ' and ' v slovencine nepouzivame
 		$separator   = ' ';
 		$negative    = 'mínus ';
-		$decimal     = ' celé ';
 		$dictionary  = array(
 			0                   => 'nula',
 			1                   => 'jeden', // jeden milion, jedna miliarda
@@ -195,7 +199,7 @@ class NumberToWords_SK
 				$base = pow(10, strlen($fraction));
 				$string .= " ".sprintf(self::$templateFraction, intval($fraction), $base); // ie. 99/100
 			}else{
-				$string .= $decimal;
+				$string .= self::$txtDecimal;
 				if('0' !== substr($fraction, 0, 1) && intval($fraction) < 1000){
 					// up to 3 decimals and not zeroes on left - full convert
 					$string .= self::convert($fraction);

@@ -38,19 +38,32 @@ NumberToWords::convert(123.45, 'sk'); // jednostodvadsaťtri celé štyridsaťp�
 NumberToWords_SK::convert(123.45); // jednostodvadsaťtri celé štyridsaťpäť
 NumberToWords_SK::convertIntl(123.45); // jedna­sto dvasať­tri čiarka štyri päť (ICU returns "dvasať", bug)
 
+// supply number as string - will retain right-sided zeroes on decimal part
+NumberToWords_SK::convert(37.40); // tridsaťsedem celé štyri - strip off right-sided zeroes
+NumberToWords_SK::convert("37.40"); // tridsaťsedem celé štyridsať - keep right-sided zeroes
+NumberToWords_SK::convert("37.400"); // tridsaťsedem celé štyristo - keep right-sided zeroes
+
+// arbitrary decimals word separator
+NumberToWords_EN::$txtDecimal = " čiarka ";
+NumberToWords_EN::convert(12.30); // dvanásť čiarka tridsať
+
 // with decimals as a fraction - useful in accounting
 NumberToWords::$decimalsAsFraction = true;
 NumberToWords::convert(123.45, 'sk'); // jednostodvadsaťtri (45/100)
 
 // Česky / Czech:
-NumberToWords::convert(123.45, 'cz'); // allowed cz or cs, // sto dvacet tři čárka čtyřicet pět
-NumberToWords_CZ::convert(123.45); // sto dvacet tři čárka čtyřicet pět
-NumberToWords_CZ::convertIntl(123.45); // sto dvacet tři čárka čtyři pět
+NumberToWords::convert(123.45, 'cz'); // allowed cz or cs, // sto dvacet tři celá čtyřicet pět
+NumberToWords_CZ::convert(123.45); // sto dvacet tři celá čtyřicet pět
+NumberToWords_CZ::convertIntl(123.45); // sto dvacet tři celá čtyři pět
 
 // English:
 NumberToWords::convert(123.45); // lang code not needed since english is default
 NumberToWords_EN::convert(123.45); // one hundred twenty-three point fourty-five
 NumberToWords_EN::convertIntl(123.45); // one hundred twenty-three point four five
+
+// arbitrary decimals word separator
+NumberToWords_EN::$txtDecimal = " comma ";
+NumberToWords_EN::convert(12.30); // twelve comma thirty
 
 // really big number:
 NumberToWords_EN::convert(987654321.123);
@@ -72,6 +85,12 @@ NumberToWords::convert(123.45, 'fr'); // cent vingt-trois virgule quatre cinq
 
 Changelog
 ---------
+
+1.0.5 - 10.08.2024
+------------------
+* make decimals separator word configurable
+* clearify documentation on how to keep right-padded zeroes on decimal part
+* added tests
 
 1.0.4 - 04.02.2024
 ------------------

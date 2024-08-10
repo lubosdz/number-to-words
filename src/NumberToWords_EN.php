@@ -27,6 +27,11 @@ class NumberToWords_EN
 	public static $templateFraction = "(%s/%s)";
 
 	/**
+	* @var string The separator word for the decimal part
+	*/
+	public static $txtDecimal = " point ";
+
+	/**
 	* Return converted number as a string
 	* @param float $number
 	* @param int $units
@@ -39,7 +44,6 @@ class NumberToWords_EN
 		$conjunction = ' and ';
 		$separator   = ' ';
 		$negative    = 'negative ';
-		$decimal     = ' point ';
 		$dictionary  = array(
 			0                   => 'zero',
 			1                   => 'one',
@@ -140,7 +144,7 @@ class NumberToWords_EN
 				$base = pow(10, strlen($fraction));
 				$string .= " ".sprintf(self::$templateFraction, intval($fraction), $base); // ie. 99/100
 			}else{
-				$string .= $decimal;
+				$string .= self::$txtDecimal;
 				if('0' !== substr($fraction, 0, 1) && intval($fraction) < 1000){
 					// up to 3 decimals and not zeroes on left - full convert
 					$string .= trim(self::convert($fraction));

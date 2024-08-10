@@ -47,6 +47,22 @@ class NumberToWords_Test extends TestCase
 
 		NumberToWords::$decimalsAsFraction = false;
 
+		$num = 37.4;
+		$res_A = NumberToWords::convert($num, 'sk');
+		$this->assertTrue($res_A == 'tridsaťsedem celé štyri');
+
+		$num = 37.40; // numeric type - decimals "37.40" will be stripped off zeroes to "37.4"
+		$res_A = NumberToWords::convert($num, 'sk');
+		$this->assertTrue($res_A == 'tridsaťsedem celé štyri');
+
+		$num = '37.40'; // string type - retain right sided zeroes on decimal part
+		$res_A = NumberToWords::convert($num, 'sk');
+		$this->assertTrue($res_A == 'tridsaťsedem celé štyridsať');
+
+		$num = '37.400'; // string type - retain right sided zeroes on decimal part
+		$res_A = NumberToWords::convert($num, 'sk');
+		$this->assertTrue($res_A == 'tridsaťsedem celé štyristo');
+
 		// big number
 		$num = 987654321.123;
 		$res_A = NumberToWords::convert($num, 'sk');
@@ -57,6 +73,12 @@ class NumberToWords_Test extends TestCase
 		// output may vary depending ICU version
 		$res_A = NumberToWords_SK::convertIntl($num);
 		$this->assertTrue(false !== strpos($res_A, 'osemdesiat') && false !== strpos($res_A, 'čiarka jeden dva tri'));
+
+		// arbitrary decimals separator word
+		NumberToWords_SK::$txtDecimal = " čiarka ";
+		$num = "12.30";
+		$res_A = NumberToWords_SK::convert($num);
+		$this->assertTrue($res_A == 'dvanásť čiarka tridsať');
 	}
 
 	// Czech tests
@@ -65,7 +87,7 @@ class NumberToWords_Test extends TestCase
 		$num = 123.45;
 		$res_A = NumberToWords::convert($num, 'cz'); // cz or cs
 		$res_B = NumberToWords_CZ::convert($num);
-		$this->assertTrue($res_A == 'sto dvacet tři čárka čtyřicet pět');
+		$this->assertTrue($res_A == 'sto dvacet tři celá čtyřicet pět');
 		$this->assertTrue($res_A == $res_B);
 
 		// output via PHP extension INTL may vary depending ICU version, has many bugs
@@ -94,16 +116,38 @@ class NumberToWords_Test extends TestCase
 
 		NumberToWords::$decimalsAsFraction = false;
 
+		$num = 37.4;
+		$res_A = NumberToWords::convert($num, 'cz');
+		$this->assertTrue($res_A == 'třicet sedm celá čtyři');
+
+		$num = 37.40; // numeric type - decimals "37.40" will be stripped off zeroes to "37.4"
+		$res_A = NumberToWords::convert($num, 'cz');
+		$this->assertTrue($res_A == 'třicet sedm celá čtyři');
+
+		$num = '37.40'; // string type - retain right sided zeroes on decimal part
+		$res_A = NumberToWords::convert($num, 'cz');
+		$this->assertTrue($res_A == 'třicet sedm celá čtyřicet');
+
+		$num = '37.400'; // string type - retain right sided zeroes on decimal part
+		$res_A = NumberToWords::convert($num, 'cz');
+		$this->assertTrue($res_A == 'třicet sedm celá čtyři sta');
+
 		// big number
 		$num = 987654321.123;
 		$res_A = NumberToWords::convert($num, 'cz');
 		$res_B = NumberToWords_CZ::convert($num);
-		$this->assertTrue($res_A == 'devět set osmdesát sedm miliónů šest set padesát čtyři tisíc tři sta dvacet jeden čárka sto dvacet tři');
+		$this->assertTrue($res_A == 'devět set osmdesát sedm miliónů šest set padesát čtyři tisíc tři sta dvacet jeden celá sto dvacet tři');
 		$this->assertTrue($res_A == $res_B);
 
 		// output may vary depending ICU version
 		$res_A = NumberToWords_CZ::convertIntl($num);
-		$this->assertTrue(false !== strpos($res_A, 'osmdesát') && false !== strpos($res_A, 'čárka jeden dva tři'));
+		$this->assertTrue(false !== strpos($res_A, 'osmdesát sedm') && false !== strpos($res_A, 'čárka jeden dva tři'));
+
+		// arbitrary decimals separator word
+		NumberToWords_CZ::$txtDecimal = " čárka ";
+		$num = "12.30";
+		$res_A = NumberToWords_CZ::convert($num);
+		$this->assertTrue($res_A == 'dvanáct čárka třicet');
 	}
 
 	// English + other lang tests
@@ -141,6 +185,22 @@ class NumberToWords_Test extends TestCase
 
 		NumberToWords::$decimalsAsFraction = false;
 
+		$num = 37.4;
+		$res_A = NumberToWords::convert($num, 'en');
+		$this->assertTrue($res_A == ' thirty-seven point four');
+
+		$num = 37.40; // numeric type - decimals "37.40" will be stripped off zeroes to "37.4"
+		$res_A = NumberToWords::convert($num, 'en');
+		$this->assertTrue($res_A == ' thirty-seven point four');
+
+		$num = '37.40'; // string type - retain right sided zeroes on decimal part
+		$res_A = NumberToWords::convert($num, 'en');
+		$this->assertTrue($res_A == ' thirty-seven point fourty');
+
+		$num = '37.400'; // string type - retain right sided zeroes on decimal part
+		$res_A = NumberToWords::convert($num, 'en');
+		$this->assertTrue($res_A == ' thirty-seven point four hundred');
+
 		// big number
 		$num = 987654321.123;
 		$res_A = NumberToWords::convert($num, 'en');
@@ -151,6 +211,14 @@ class NumberToWords_Test extends TestCase
 		// output may vary depending ICU version
 		$res_A = NumberToWords_EN::convertIntl($num);
 		$this->assertTrue(false !== strpos($res_A, 'seven million') && false !== strpos($res_A, 'point one two three'));
+
+		// arbitrary decimals separator word
+		NumberToWords_EN::$txtDecimal = " comma ";
+		$num = "12.30";
+		$res_A = NumberToWords_EN::convert($num);
+		$this->assertTrue($res_A == 'twelve comma thirty');
+
+		// other langs ....
 
 		// Russian
 		$num = 123.45;
