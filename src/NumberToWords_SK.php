@@ -32,6 +32,11 @@ class NumberToWords_SK
 	public static $txtDecimal = " celé ";
 
 	/**
+	* @var null|int Set the number of enforced decimals, must be > 0
+	*/
+	public static $numberOfdecimals = null;
+
+	/**
 	* Return converted number as a string
 	* @param float $number
 	* @param int $units
@@ -102,6 +107,9 @@ class NumberToWords_SK
 		$string = $fraction = '';
 
 		if (strpos($number, '.') !== false) {
+			if ( (int) self::$numberOfdecimals > 0 ) {
+				$number = number_format($number, (int) self::$numberOfdecimals, '.', '');
+			}
 			list($number, $fraction) = explode('.', $number);
 		}
 

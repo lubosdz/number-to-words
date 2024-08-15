@@ -22,7 +22,7 @@ class NumberToWords_CZ
 
 	/**
 	* @var string Output template when returning decimal part as a fraction (formatted with sprintf)
-	* 			  First placeholder %s is for the fraction, second %s for the base ie. (99/100)
+	* First placeholder %s is for the fraction, second %s for the base ie. (99/100)
 	*/
 	public static $templateFraction = "(%s/%s)";
 
@@ -30,6 +30,11 @@ class NumberToWords_CZ
 	* @var string The separator word for the decimal part
 	*/
 	public static $txtDecimal = " celá ";
+
+	/**
+	* @var null|int Set the number of enforced decimals, must be > 0
+	*/
+	public static $numberOfdecimals = null;
 
 	/**
 	* Return converted number as a string
@@ -101,6 +106,9 @@ class NumberToWords_CZ
 		$string = $fraction = '';
 
 		if (strpos($number, '.') !== false) {
+			if ( (int) self::$numberOfdecimals > 0 ) {
+				$number = number_format($number, (int) self::$numberOfdecimals, '.', '');
+			}
 			list($number, $fraction) = explode('.', $number);
 		}
 

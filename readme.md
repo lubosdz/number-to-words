@@ -51,6 +51,10 @@ NumberToWords_EN::convert(12.30); // dvanásť čiarka tridsať
 NumberToWords::$decimalsAsFraction = true;
 NumberToWords::convert(123.45, 'sk'); // jednostodvadsaťtri (45/100)
 
+// enforce desired number of decimals
+NumberToWords::$numberOfdecimals = 2;
+NumberToWords::convert(12.3, 'sk'); // dvanásť celé tridsať
+
 // Česky / Czech:
 NumberToWords::convert(123.45, 'cz'); // allowed cz or cs, // sto dvacet tři celá čtyřicet pět
 NumberToWords_CZ::convert(123.45); // sto dvacet tři celá čtyřicet pět
@@ -85,6 +89,10 @@ NumberToWords::convert(123.45, 'fr'); // cent vingt-trois virgule quatre cinq
 
 Changelog
 ---------
+
+1.0.6 - 15.08.2024
+------------------
+* support enforcing the number of decimals
 
 1.0.5 - 10.08.2024
 ------------------

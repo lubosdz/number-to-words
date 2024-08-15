@@ -75,10 +75,35 @@ class NumberToWords_Test extends TestCase
 		$this->assertTrue(false !== strpos($res_A, 'osemdesiat') && false !== strpos($res_A, 'čiarka jeden dva tri'));
 
 		// arbitrary decimals separator word
-		NumberToWords_SK::$txtDecimal = " čiarka ";
 		$num = "12.30";
+		NumberToWords_SK::$txtDecimal = " čiarka ";
 		$res_A = NumberToWords_SK::convert($num);
 		$this->assertTrue($res_A == 'dvanásť čiarka tridsať');
+
+		// enforce the number of decimals
+		NumberToWords_SK::$numberOfdecimals = 3;
+		$res_A = NumberToWords_SK::convert($num);
+		$this->assertTrue($res_A == 'dvanásť čiarka tristo');
+
+		NumberToWords_SK::$numberOfdecimals = 1;
+		NumberToWords_SK::$txtDecimal = " celé ";
+		$res_A = NumberToWords_SK::convert($num);
+		$this->assertTrue($res_A == 'dvanásť celé tri');
+
+		NumberToWords_SK::$numberOfdecimals = 0; // ignored, must be > 0
+		$res_A = NumberToWords_SK::convert($num);
+		$this->assertTrue($res_A == 'dvanásť celé tridsať');
+
+		NumberToWords::$numberOfdecimals = 4; // global / factory class
+		$res_A = NumberToWords::convert($num, 'sk');
+		$this->assertTrue($res_A == 'dvanásť celé tri nula nula nula');
+
+		NumberToWords::$numberOfdecimals = 2; // global / factory class
+		$res_A = NumberToWords::convert(12.3, 'sk');
+		$this->assertTrue($res_A == 'dvanásť celé tridsať');
+
+		// restore default value since this is static member, or some test might fail
+		NumberToWords::$numberOfdecimals = null;
 	}
 
 	// Czech tests
@@ -144,10 +169,24 @@ class NumberToWords_Test extends TestCase
 		$this->assertTrue(false !== strpos($res_A, 'osmdesát sedm') && false !== strpos($res_A, 'čárka jeden dva tři'));
 
 		// arbitrary decimals separator word
-		NumberToWords_CZ::$txtDecimal = " čárka ";
 		$num = "12.30";
+		NumberToWords_CZ::$txtDecimal = " čárka ";
 		$res_A = NumberToWords_CZ::convert($num);
 		$this->assertTrue($res_A == 'dvanáct čárka třicet');
+
+		// enforce the number of decimals
+		NumberToWords_CZ::$numberOfdecimals = 3;
+		$res_A = NumberToWords_CZ::convert($num);
+		$this->assertTrue($res_A == 'dvanáct čárka tři sta');
+
+		NumberToWords_CZ::$numberOfdecimals = 1;
+		NumberToWords_CZ::$txtDecimal = " celá ";
+		$res_A = NumberToWords_CZ::convert($num);
+		$this->assertTrue($res_A == 'dvanáct celá tři');
+
+		NumberToWords_CZ::$numberOfdecimals = 0; // ignored, must be > 0
+		$res_A = NumberToWords_CZ::convert($num);
+		$this->assertTrue($res_A == 'dvanáct celá třicet');
 	}
 
 	// English + other lang tests
@@ -213,10 +252,24 @@ class NumberToWords_Test extends TestCase
 		$this->assertTrue(false !== strpos($res_A, 'seven million') && false !== strpos($res_A, 'point one two three'));
 
 		// arbitrary decimals separator word
-		NumberToWords_EN::$txtDecimal = " comma ";
 		$num = "12.30";
+		NumberToWords_EN::$txtDecimal = " comma ";
 		$res_A = NumberToWords_EN::convert($num);
 		$this->assertTrue($res_A == 'twelve comma thirty');
+
+		// enforce the number of decimals
+		NumberToWords_EN::$numberOfdecimals = 3;
+		$res_A = NumberToWords_EN::convert($num);
+		$this->assertTrue($res_A == 'twelve comma three hundred');
+
+		NumberToWords_EN::$numberOfdecimals = 1;
+		NumberToWords_EN::$txtDecimal = " EUR ";
+		$res_A = NumberToWords_EN::convert($num);
+		$this->assertTrue($res_A == 'twelve EUR three');
+
+		NumberToWords_EN::$numberOfdecimals = 0; // ignored, must be > 0
+		$res_A = NumberToWords_EN::convert($num);
+		$this->assertTrue($res_A == 'twelve EUR thirty');
 
 		// other langs ....
 
